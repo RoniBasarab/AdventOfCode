@@ -1,16 +1,14 @@
-package main
+package daythree
 
 import (
-	"2015/datastruct"
 	"fmt"
+	"utils"
+	"year2015/datastruct"
 )
 
-func main() {
+func Solution() {
 
-	//data := getActualDataFromFile("daytwoinput.txt")
-	// data := getActualDataFromFileByLine("daytwoinput.txt")
-	// data := getActualDataFromFile("daythreeinput.txt")
-	data := "^>v<"
+	data := utils.GetActualDataFromFile("three", "2015")
 	totalUniqueHousesVisitedBySanta := 1
 	santasPath := &datastruct.FourWayNode{Up: nil, Down: nil, Left: nil, Right: nil}
 

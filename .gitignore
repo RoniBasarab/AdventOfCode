@@ -1,6 +1,8 @@
 /go.work
 /go.work.sum
+/go.mod
 utils/config.yaml
 utils/go.mod
 utils/go.sum
-2015/go.mod
+year2015/go.mod
+.vscode

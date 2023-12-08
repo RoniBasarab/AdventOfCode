@@ -9,20 +9,19 @@ import (
 	"github.com/spf13/viper"
 )
 
-func getDataFile() *os.File {
-	viper.SetConfigFile("config.yaml")
+func GetDataFile(specificDay, yearNumber string) *os.File {
 
-	if err := viper.ReadInConfig(); err != nil {
-		fmt.Println("Error reading config file:", err)
+	workingDir, errWd := os.Getwd()
+
+	if errWd != nil {
+		fmt.Println("Error getting working directory", errWd)
 		return nil
 	}
 
-	var userDirectoryInput string
-	fmt.Print("Please enter the year of the input file and the name of the input file. Example:\n2015\\daythree\\daythreeinput.txt")
-	_, err := fmt.Scanln(&userDirectoryInput)
+	viper.SetConfigFile(workingDir + "\\utils\\config.yaml")
 
-	if err != nil {
-		fmt.Println("Error reading input:", err)
+	if err := viper.ReadInConfig(); err != nil {
+		fmt.Println("Error reading config file:", err)
 		return nil
 	}
 
@@ -30,7 +29,7 @@ func getDataFile() *os.File {
 
 	var sb strings.Builder
 	sb.WriteString(workingDirectory)
-	sb.WriteString(userDirectoryInput)
+	sb.WriteString("year" + yearNumber + "\\" + "day" + specificDay + "\\" + "day" + specificDay + "input.txt")
 
 	input, errInput := os.Open(sb.String())
 	if errInput != nil {
@@ -41,8 +40,8 @@ func getDataFile() *os.File {
 	return input
 }
 
-func getActualDataFromFile() string {
-	inputFile := getDataFile()
+func GetActualDataFromFile(specificDay, year string) string {
+	inputFile := GetDataFile(specificDay, year)
 	if inputFile == nil {
 		return ""
 	}
@@ -62,8 +61,8 @@ func getActualDataFromFile() string {
 	return data.String()
 }
 
-func getActualDataFromFileByLine(fileName string, dir string) string {
-	inputFile := getDataFile()
+func GetActualDataFromFileByLine(specificDay, year string) string {
+	inputFile := GetDataFile(specificDay, year)
 	if inputFile == nil {
 		return ""
 	}
