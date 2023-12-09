@@ -1,7 +1,5 @@
 package datastruct
 
-import "fmt"
-
 type Stack struct {
 	elements []rune
 }
@@ -35,81 +33,65 @@ func (s *Stack) Size() int {
 	return len(s.elements)
 }
 
-type FourWayNode struct {
-	Up    *FourWayNode
-	Down  *FourWayNode
-	Left  *FourWayNode
-	Right *FourWayNode
+type Coordinates2D struct {
+	X int
+	Y int
 }
 
-func (currentNode *FourWayNode) AppendAndReturnCurrentPosition(direction rune, uniqueHouses *int) *FourWayNode {
-	newNode := &FourWayNode{Up: nil, Down: nil, Left: nil, Right: nil}
+func (c *Coordinates2D) Plus(other *Coordinates2D) {
+	c.X += (*other).X
+	c.Y += (*other).Y
+}
 
-	switch direction {
-	case '^':
-		if currentNode.Up != nil {
-			fmt.Println("I have someone up!, i go UP!")
-			return currentNode.Up
-		}
-		fmt.Println("There's nobody up!, i create UP!")
-		newNode.Down = currentNode
-		currentNode.Up = newNode
-		checkIfNeighboursExistAndConnect(&newNode)
-		*uniqueHouses += 1
-		return newNode
+type Coordinates3D struct {
+	X int
+	Y int
+	Z int
+}
 
-	case 'v':
-		if currentNode.Down != nil {
-			fmt.Println("I have someone down!, i go DOWN!")
-			return currentNode.Down
-		}
-		fmt.Println("There's nobody down!, i create DOWN!")
-		newNode.Up = currentNode
-		currentNode.Down = newNode
-		checkIfNeighboursExistAndConnect(&newNode)
-		*uniqueHouses += 1
-		return newNode
+type Set struct {
+	Items []interface{}
+}
 
-	case '>':
-		if currentNode.Right != nil {
-			fmt.Println("I have someone right!, i go Right!")
-			return currentNode.Right
-		}
-		fmt.Println("There's nobody right!, i create Right!")
-		newNode.Left = currentNode
-		currentNode.Right = newNode
-		checkIfNeighboursExistAndConnect(&newNode)
-		*uniqueHouses += 1
-		return newNode
+func (s *Set) AddAndReturnCurrentSantaPosition(item Coordinates2D, uniqueHouses *int) Coordinates2D {
+	if !(s.IsInSet(item)) {
+		s.Items = append(s.Items, item)
+		*uniqueHouses++
+		return item
+	}
+	return item
+}
 
-	case '<':
-		if currentNode.Left != nil {
-			fmt.Println("I have someone left!, i go LEFT!")
-			return currentNode.Left
-		}
-		fmt.Println("There's nobody left!, i create LEFT!")
-		newNode.Right = currentNode
-		currentNode.Left = newNode
-		checkIfNeighboursExistAndConnect(&newNode)
-		*uniqueHouses += 1
-		return newNode
-
-	default:
-		return currentNode
+func (s *Set) Add(item interface{}) {
+	if !(s.IsInSet(item)) {
+		s.Items = append(s.Items, item)
 	}
 }
 
-func checkIfNeighboursExistAndConnect(node **FourWayNode) {
-	if (*node).Up != nil {
-		(*node).Up.Down = *node
+func (s *Set) Remove(item interface{}) {
+	indexToRemove := -1
+
+	for i, setItem := range s.Items {
+		if setItem == item {
+			indexToRemove = i
+			break
+		}
 	}
-	if (*node).Down != nil {
-		(*node).Down.Up = *node
+
+	if indexToRemove != -1 {
+		s.Items = append(s.Items[:indexToRemove], s.Items[indexToRemove+1:]...)
 	}
-	if (*node).Right != nil {
-		(*node).Right.Left = *node
+}
+
+func (s *Set) Size() int {
+	return len(s.Items)
+}
+
+func (s *Set) IsInSet(item interface{}) bool {
+	for _, setItem := range s.Items {
+		if setItem == item {
+			return true
+		}
 	}
-	if (*node).Left != nil {
-		(*node).Left.Right = *node
-	}
+	return false
 }
