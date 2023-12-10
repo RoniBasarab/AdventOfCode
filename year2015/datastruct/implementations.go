@@ -49,49 +49,45 @@ type Coordinates3D struct {
 	Z int
 }
 
-type Set struct {
-	Items []interface{}
-}
+type Set map[interface{}]interface{}
 
-func (s *Set) AddAndReturnCurrentSantaPosition(item Coordinates2D, uniqueHouses *int) Coordinates2D {
+func (s Set) AddAndReturnCurrentSantaPosition(item Coordinates2D, uniqueHouses *int) Coordinates2D {
 	if !(s.IsInSet(item)) {
-		s.Items = append(s.Items, item)
+		s[item] = Coordinates2D{X: item.X, Y: item.Y}
 		*uniqueHouses++
 		return item
 	}
 	return item
 }
 
-func (s *Set) Add(item interface{}) {
-	if !(s.IsInSet(item)) {
-		s.Items = append(s.Items, item)
-	}
+func (s Set) Add(item interface{}) {
+	s[item] = struct{}{}
 }
 
-func (s *Set) Remove(item interface{}) {
-	indexToRemove := -1
-
-	for i, setItem := range s.Items {
-		if setItem == item {
-			indexToRemove = i
-			break
-		}
-	}
-
-	if indexToRemove != -1 {
-		s.Items = append(s.Items[:indexToRemove], s.Items[indexToRemove+1:]...)
-	}
+func (s Set) Remove(item interface{}) {
+	delete(s, item)
 }
 
-func (s *Set) Size() int {
-	return len(s.Items)
+func (s Set) Size() int {
+	return len(s)
 }
 
-func (s *Set) IsInSet(item interface{}) bool {
-	for _, setItem := range s.Items {
-		if setItem == item {
-			return true
-		}
+func (s Set) IsInSet(item interface{}) bool {
+	_, ok := s[item]
+	return ok
+
+}
+
+func (s Set) SymmetricDifference(other *Set) Set {
+	symmetricDifferenceSet := Set{}
+
+	for _, setItem := range s {
+		symmetricDifferenceSet.Add(setItem)
 	}
-	return false
+
+	for _, setItem := range *other {
+		symmetricDifferenceSet.Add(setItem)
+	}
+
+	return symmetricDifferenceSet
 }
