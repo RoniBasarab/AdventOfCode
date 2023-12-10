@@ -45,8 +45,8 @@ func Solution() {
 	lastStepRobot := datastruct.Coordinates2D{X: 0, Y: 0}
 	santasPath := datastruct.Set{}
 	robotPath := datastruct.Set{}
-	santasPath[lastStepSanta] = struct{}{}
-	robotPath[lastStepRobot] = struct{}{}
+	santasPath[lastStepSanta] = lastStepSanta
+	robotPath[lastStepRobot] = lastStepRobot
 	north := datastruct.Coordinates2D{X: 0, Y: 1}
 	south := datastruct.Coordinates2D{X: 0, Y: -1}
 	west := datastruct.Coordinates2D{X: -1, Y: 0}
