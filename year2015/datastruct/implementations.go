@@ -1,36 +1,34 @@
 package datastruct
 
-type Stack struct {
-	elements []rune
-}
+type Stack []interface{}
 
-func (s *Stack) Pop() rune {
-	if len(s.elements) == 0 {
+func (s *Stack) Pop() interface{} {
+	if len(*s) == 0 {
 		return 0
 	}
 
-	x := s.elements[len(s.elements)-1]
-	s.elements = s.elements[:len(s.elements)-1]
+	x := (*s)[len(*s)-1]
+	*s = (*s)[:len(*s)-1]
 	return x
 }
 
-func (s *Stack) Peek() rune {
-	if len(s.elements) == 0 {
+func (s *Stack) Peek() interface{} {
+	if len(*s) == 0 {
 		return 0
 	}
-	return s.elements[len(s.elements)-1]
+	return (*s)[len(*s)-1]
 }
 
-func (s *Stack) Push(x rune) {
-	s.elements = append(s.elements, x)
+func (s *Stack) Push(x interface{}) {
+	*s = append(*s, x)
 }
 
 func (s *Stack) isEmpty() bool {
-	return len(s.elements) == 0
+	return len(*s) == 0
 }
 
 func (s *Stack) Size() int {
-	return len(s.elements)
+	return len(*s)
 }
 
 type Coordinates2D struct {

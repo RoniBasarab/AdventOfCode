@@ -1,6 +1,11 @@
 package year2015
 
-import "year2015/daythree"
+import (
+	"fmt"
+	"year2015/dayfive"
+	"year2015/dayfour"
+	"year2015/daythree"
+)
 
 const (
 	one    = "one"
@@ -25,12 +30,22 @@ func LaunchByDay(day string) {
 			daythree.Solution()
 		}
 	case four:
+		{
+			dayfour.Solution()
+		}
 	case five:
+		{
+			dayfive.Solution()
+		}
 	case six:
 	case seven:
 	case eight:
 	case nine:
 	case ten:
 	case eleven:
+	default:
+		{
+			fmt.Println("Wrong input!")
+		}
 	}
 }
