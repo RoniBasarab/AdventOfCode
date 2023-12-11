@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"year2015/dayfive"
 	"year2015/dayfour"
+	"year2015/daysix"
 	"year2015/daythree"
 )
 
@@ -23,8 +24,6 @@ const (
 
 func LaunchByDay(day string) {
 	switch day {
-	case one:
-	case two:
 	case three:
 		{
 			daythree.Solution()
@@ -38,6 +37,9 @@ func LaunchByDay(day string) {
 			dayfive.Solution()
 		}
 	case six:
+		{
+			daysix.Solution()
+		}
 	case seven:
 	case eight:
 	case nine:
@@ -45,7 +47,7 @@ func LaunchByDay(day string) {
 	case eleven:
 	default:
 		{
-			fmt.Println("Wrong input!")
+			fmt.Println("There is no solution for this day! Please relaunch the application")
 		}
 	}
 }
