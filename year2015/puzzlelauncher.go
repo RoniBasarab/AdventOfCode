@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"year2015/dayfive"
 	"year2015/dayfour"
+	"year2015/dayseven"
 	"year2015/daysix"
 	"year2015/daythree"
 )
@@ -41,6 +42,9 @@ func LaunchByDay(day string) {
 			daysix.Solution()
 		}
 	case seven:
+		{
+			dayseven.Solution()
+		}
 	case eight:
 	case nine:
 	case ten:

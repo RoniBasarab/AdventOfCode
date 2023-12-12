@@ -17,10 +17,9 @@ const (
 
 func Solution() {
 	data := utils.GetActualDataFromFileByLine("six", "2015")
-	dataArray := strings.Split(data, "\n")
 	grid := initGrid(1000, 1000)
-	dataArray = dataArray[:len(dataArray)-1]
-	for _, input := range dataArray {
+
+	for _, input := range data {
 
 		var command string
 		switch {

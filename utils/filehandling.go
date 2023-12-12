@@ -61,10 +61,10 @@ func GetActualDataFromFile(specificDay, year string) string {
 	return data.String()
 }
 
-func GetActualDataFromFileByLine(specificDay, year string) string {
+func GetActualDataFromFileByLine(specificDay, year string) []string {
 	inputFile := GetDataFile(specificDay, year)
 	if inputFile == nil {
-		return ""
+		return nil
 	}
 
 	defer inputFile.Close()
@@ -77,10 +77,10 @@ func GetActualDataFromFileByLine(specificDay, year string) string {
 	}
 
 	if scannerError(&scanner) {
-		return ""
+		return nil
 	}
-
-	return data.String()
+	dataArray := strings.Split(data.String(), "\n")
+	return dataArray[:len(dataArray)-1]
 }
 
 func scannerError(scanner **bufio.Scanner) bool {

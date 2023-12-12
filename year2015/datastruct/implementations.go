@@ -1,5 +1,9 @@
 package datastruct
 
+import (
+	"fmt"
+)
+
 type Stack []interface{}
 
 func (s *Stack) Pop() interface{} {
@@ -29,6 +33,13 @@ func (s *Stack) isEmpty() bool {
 
 func (s *Stack) Size() int {
 	return len(*s)
+}
+
+func (s *Stack) PrintStack() {
+	for _, item := range *s {
+		fmt.Println(item)
+		fmt.Println("\n")
+	}
 }
 
 type Coordinates2D struct {

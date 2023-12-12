@@ -8,16 +8,15 @@ import (
 
 func Solution() {
 	data := utils.GetActualDataFromFileByLine("five", "2015")
-	dataArray := strings.Split(data, "\n")
 	niceStrings := 0
 
-	for _, word := range dataArray {
+	for _, word := range data {
 		if betterIsNiceString(word) {
 			niceStrings++
 		}
 	}
 
-	fmt.Println("Number of total words: ", len(dataArray))
+	fmt.Println("Number of total words: ", len(data))
 	fmt.Println("Nice strings:", niceStrings)
 
 }
